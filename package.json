@@ -1,0 +1,21 @@
+{
+  "name": "networking-portfolio",
+  "version": "1.0.0",
+  "description": "Networking & Cloud Engineering student portfolio with Azure SQL contact form",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "networking",
+    "cloud",
+    "azure",
+    "portfolio"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mssql": "^11.0.1"
+  }
+}

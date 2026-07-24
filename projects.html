@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects | Networking & Cloud Portfolio</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="main-nav">
+      <a href="index.html" class="nav-brand">NetCloud Portfolio</a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="projects.html" class="nav-link active">Projects</a></li>
+        <li><a href="contact.html" class="nav-link">Contact Me</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="page-content">
+    <section class="projects-section">
+      <h1>Projects</h1>
+      <p class="section-intro">
+        A selection of networking and cloud deployments demonstrating practical infrastructure skills.
+      </p>
+
+      <div class="filter-bar">
+        <button type="button" class="filter-btn active" data-filter="all">All</button>
+        <button type="button" class="filter-btn" data-filter="networking">Networking</button>
+        <button type="button" class="filter-btn" data-filter="cloud">Cloud</button>
+      </div>
+
+      <div class="projects-grid">
+        <article class="project-card" data-category="networking">
+          <img
+            class="zoomable-img"
+            src="https://placehold.co/600x400/2c3e50/3498db?text=Enterprise+VLAN+Setup"
+            alt="Enterprise VLAN Setup diagram"
+          >
+          <div class="project-body">
+            <h2>Enterprise VLAN Setup</h2>
+            <p>
+              Designed and implemented a multi-VLAN campus network with inter-VLAN routing,
+              ACLs, and DHCP relay for departmental isolation.
+            </p>
+            <span class="project-tag">Networking</span>
+          </div>
+        </article>
+
+        <article class="project-card" data-category="cloud">
+          <img
+            class="zoomable-img"
+            src="https://placehold.co/600x400/2c3e50/3498db?text=Azure+App+%26+SQL"
+            alt="Azure App and SQL Deployment architecture"
+          >
+          <div class="project-body">
+            <h2>Azure App &amp; SQL Deployment</h2>
+            <p>
+              Deployed a Node.js web application to Azure App Service with Azure SQL Database,
+              environment-based configuration, and encrypted connections.
+            </p>
+            <span class="project-tag">Cloud</span>
+          </div>
+        </article>
+
+        <article class="project-card" data-category="networking">
+          <img
+            class="zoomable-img"
+            src="https://placehold.co/600x400/2c3e50/3498db?text=Site-to-Site+VPN"
+            alt="Site-to-Site VPN configuration"
+          >
+          <div class="project-body">
+            <h2>Site-to-Site VPN Lab</h2>
+            <p>
+              Configured IPsec VPN tunnels between branch offices with dynamic routing and
+              failover testing in a GNS3 lab environment.
+            </p>
+            <span class="project-tag">Networking</span>
+          </div>
+        </article>
+
+        <article class="project-card" data-category="cloud">
+          <img
+            class="zoomable-img"
+            src="https://placehold.co/600x400/2c3e50/3498db?text=Cloud+Monitoring"
+            alt="Cloud monitoring dashboard"
+          >
+          <div class="project-body">
+            <h2>Cloud Monitoring Stack</h2>
+            <p>
+              Built a lightweight monitoring solution for Azure-hosted services with alert
+              thresholds, uptime checks, and log aggregation.
+            </p>
+            <span class="project-tag">Cloud</span>
+          </div>
+        </article>
+
+        <article class="project-card" data-category="networking">
+          <img
+            class="zoomable-img"
+            src="https://placehold.co/600x400/2c3e50/3498db?text=Wireless+Network"
+            alt="Wireless network deployment"
+          >
+          <div class="project-body">
+            <h2>Secure Wireless Deployment</h2>
+            <p>
+              Planned and deployed WPA3-Enterprise wireless access with RADIUS authentication
+              and guest network segmentation.
+            </p>
+            <span class="project-tag">Networking</span>
+          </div>
+        </article>
+
+        <article class="project-card" data-category="cloud">
+          <img
+            class="zoomable-img"
+            src="https://placehold.co/600x400/2c3e50/3498db?text=IaC+Pipeline"
+            alt="Infrastructure as Code pipeline"
+          >
+          <div class="project-body">
+            <h2>Infrastructure as Code Pipeline</h2>
+            <p>
+              Automated Azure resource provisioning using declarative templates and CI/CD
+              pipelines for repeatable cloud deployments.
+            </p>
+            <span class="project-tag">Cloud</span>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <div id="imageModal" class="modal" aria-hidden="true">
+    <div class="modal-content">
+      <button type="button" class="modal-close" aria-label="Close image preview">&times;</button>
+      <img id="modalImage" src="" alt="Enlarged project preview">
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 Networking &amp; Cloud Engineering Portfolio</p>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
