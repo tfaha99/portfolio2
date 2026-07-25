@@ -10,31 +10,46 @@ const PORT = process.env.PORT || 8080;
 app.use(express.json());
 app.use(express.static(__dirname));
 
-// MySQL Connection Helper
-function getPool() {
-  const connectionString = process.env.MYSQL_CONN_STR || process.env.ConnectionString;
-
-  // Option A: If using a full MySQL connection string/URL
-  if (connectionString) {
-    return mysql.createPool(connectionString);
-  }
-
-  // Option B: If Azure sets individual environment variables
-  if (process.env.DB_HOST) {
-    return mysql.createPool({
+// Create a MySQL connection pool using either individual DB variables or a connection string
+const poolConfig = process.env.MYSQL_CONN_STR || process.env.MYSQLCONNSTR_default 
+  ? { uri: process.env.MYSQL_CONN_STR || process.env.MYSQLCONNSTR_default }
+  : {
       host: process.env.DB_HOST,
       user: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
       port: process.env.DB_PORT || 3306,
-      ssl: { rejectUnauthorized: false }
-    });
-  }
+      ssl: {
+        rejectUnauthorized: false // REQUIRED for Azure MySQL Flexible Server
+      },
+      waitForConnections: true,
+      connectionLimit: 10,
+      queueLimit: 0
+    };
 
-  throw new Error(
-    'Database connection string not configured. Set MYSQL_CONN_STR or DB_HOST environment variables.'
-  );
+const pool = mysql.createPool(poolConfig);
+
+// Initialize database: Auto-creates the table in Azure MySQL if it doesn't exist yet
+async function initDb() {
+  try {
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS ContactSubmissions (
+          Id          INT             AUTO_INCREMENT PRIMARY KEY,
+          FullName    VARCHAR(100)    NOT NULL,
+          Email       VARCHAR(100)    NOT NULL,
+          Subject     VARCHAR(150)    NOT NULL,
+          Message     TEXT            NOT NULL,
+          SubmittedAt DATETIME        NOT NULL DEFAULT CURRENT_TIMESTAMP
+      );
+    `);
+    console.log("Database initialized: 'ContactSubmissions' table is ready.");
+  } catch (err) {
+    console.error("Database initialization error:", err.message);
+  }
 }
+
+// Run table creation on startup
+initDb();
 
 function validateContactPayload(body) {
   const errors = [];
@@ -76,9 +91,7 @@ app.post('/api/contact', async (req, res) => {
   const { name, email, subject, message } = req.body;
 
   try {
-    const pool = getPool();
-
-    // MySQL parameterized query using ? positional placeholders
+    // MySQL parameterized query using ? syntax instead of @param
     const query = `
       INSERT INTO ContactSubmissions (FullName, Email, Subject, Message)
       VALUES (?, ?, ?, ?)
